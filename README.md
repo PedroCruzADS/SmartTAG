@@ -9,8 +9,8 @@ O foco principal é e-commerce: divulgar produtos, benefícios comprovados, pre�
 ## Início rápido
 
 ```powershell
-git clone https://github.com/PedroCruzADS/SmartTAG.git
-cd SmartTAG
+git clone https://github.com/PedroCruzADS/tesseract-creative-lab.git
+cd tesseract-creative-lab
 powershell -ExecutionPolicy Bypass -File .\scripts\bootstrap.ps1
 pip install -r requirements.txt
 ```
