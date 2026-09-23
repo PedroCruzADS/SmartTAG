@@ -1,0 +1,12 @@
+{
+  "product_slug": "produto-exemplo",
+  "objective": "conversion",
+  "channel": "meta_ads",
+  "placements": ["reels","stories"],
+  "canvas": "1080x1920",
+  "duration_seconds": 9,
+  "offer_snapshot": "data/produto-exemplo/offer.json",
+  "assets_dir": "assets/produto-exemplo",
+  "copy": {"hook":"","headline":"","support":"","cta":"Confira"},
+  "variants": {"hooks":2,"ctas":2,"formats":["1080x1920","1080x1350","1080x1080"]}
+}
