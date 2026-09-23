@@ -1,0 +1,11 @@
+Atualize uma peça existente para novas condições comerciais.
+
+Regras:
+1. Leia o snapshot novo e o snapshot usado pela versão anterior.
+2. Liste exatamente o que mudou.
+3. Altere somente elementos dependentes da oferta, salvo necessidade real de layout.
+4. Não mova produto/logo sem necessidade.
+5. Reavalie fit do texto e legibilidade.
+6. Gere novo preview/filmstrip.
+7. Nunca reutilize preço/condição anterior sem confirmação.
+8. Salve como nova versão; preserve a versão anterior.
