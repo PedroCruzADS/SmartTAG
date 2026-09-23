@@ -1,0 +1,16 @@
+Leia AGENTS.md, docs/WORKFLOW.md, docs/OFFER-TRUTH.md e docs/QA-PAID-MEDIA.md.
+
+Objetivo: criar uma master de anúncio de produto para mídia paga usando Tesseract.
+
+1. Inspecione os assets reais do produto.
+2. Leia o brief e o snapshot comercial.
+3. Não use informação comercial fora dessas fontes.
+4. Desenvolva um hook visual rápido e relacionado ao produto.
+5. Priorize produto > oferta > benefício > CTA.
+6. Use motion limpo e editável.
+7. Gere preview e filmstrip.
+8. Faça QA visual e comercial.
+9. Corrija problemas encontrados.
+10. Exporte Project.tsrct e Project.mp4.
+
+Não invente produto, característica técnica, preço, desconto, condição, logo ou selo.
