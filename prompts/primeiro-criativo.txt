@@ -1,0 +1,16 @@
+Leia AGENTS.md e briefs/casa-do-fitness-promo.md.
+
+Use Tesseract e somente os assets reais existentes em assets/.
+Crie um primeiro criativo vertical 1080x1920, com 8 a 10 segundos, destinado a Meta Ads.
+
+Requisitos:
+- não inventar nem redesenhar produto;
+- não alterar características físicas dos assets;
+- não inventar logo, preço, desconto ou condição comercial;
+- manter produto como foco;
+- motion limpo e curto;
+- texto legível em celular;
+- gerar preview e filmstrip antes do export;
+- revisar o filmstrip e corrigir problemas antes de exportar.
+
+Entregue o projeto editável .tsrct e o MP4 final dentro de outputs/.
