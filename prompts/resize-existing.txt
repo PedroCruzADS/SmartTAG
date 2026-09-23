@@ -1,0 +1,13 @@
+Adapte a peça aprovada para outro formato.
+
+Não faça simples stretch/crop cego.
+Recomponha respeitando hierarquia e safe areas:
+1. produto;
+2. headline;
+3. oferta;
+4. CTA;
+5. logo.
+
+Preserve conteúdo, identidade, timing essencial e assets.
+Não invente elementos para preencher espaço.
+Gere preview/filmstrip do novo formato antes do MP4.
