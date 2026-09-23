@@ -1,0 +1,16 @@
+Objetivo: transformar uma página de produto e assets reais em um criativo de mídia paga.
+
+Leia AGENTS.md e todos os guardrails relevantes.
+
+1. Gere ou leia o snapshot comercial da URL.
+2. Inspecione os assets reais.
+3. Separe fatos de copy criativa.
+4. Preencha um brief usando briefs/TEMPLATE.md.
+5. Crie uma master no Tesseract.
+6. Gere preview + filmstrip.
+7. Audite com docs/QA-PAID-MEDIA.md.
+8. Corrija.
+9. Exporte MP4 + .tsrct.
+10. Registre snapshot, URL e timestamp usados.
+
+Se a página não expuser preço/condições de forma confiável, não invente: solicite ou use somente informações já autorizadas.
