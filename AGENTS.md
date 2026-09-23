@@ -1,74 +1,93 @@
 # Agent instructions — Tesseract Creative Lab
 
-Você está trabalhando em um projeto de criativos da Casa do Fitness.
+Você está em um laboratório de produção de criativos de performance para e-commerce, com foco atual na Casa do Fitness.
+
+## Antes de qualquer criação
+
+Leia:
+1. `docs/WORKFLOW.md`
+2. `docs/OFFER-TRUTH.md`
+3. `docs/QA-PAID-MEDIA.md`
+4. o brief específico
+5. o snapshot comercial associado, quando existir
+
+Inspecione visualmente os assets autorizados.
 
 ## Regras obrigatórias
 
-- Rode Tesseract **localmente**. Não tente usar GitHub Actions, Linux, WSL ou cloud rendering.
-- Antes de editar, leia as skills oficiais instaladas do Tesseract e siga a versão de CLI fixada por elas.
-- Nunca trate um arquivo `.tsrct` como JSON bruto nem edite seu ZIP internamente.
-- Use `tsrct project checkout` + `project commit` quando precisar editar o documento.
-- Use `project schema` e `project schema --document` antes de construir ações/estrutura. Não invente campos.
-- Faça preview e filmstrip antes do export final.
-- Preserve assets originais.
-- Use somente os assets reais fornecidos em `assets/`.
-- Não invente ou altere características físicas do produto.
+- Rode Tesseract localmente. Não tente GitHub Actions, Linux, WSL ou cloud rendering.
+- Leia as skills oficiais instaladas do Tesseract e respeite a versão de CLI fixada.
+- Nunca edite `.tsrct` como JSON/ZIP bruto.
+- Use `project checkout` / `project commit` para documento e `project apply` para ações suportadas.
+- Consulte `project schema` e `project schema --document`; não invente campos.
+- Faça preview e filmstrip antes de exportar.
+- Preserve assets originais e projetos anteriores.
+- Não gere substitutos de IA para um produto real disponível.
+- Não altere cor, proporção, componentes ou características do produto.
 - Não redesenhe logos.
-- Não invente preço, desconto, parcelamento, frete ou qualquer condição comercial.
-- Se o brief não trouxer uma informação comercial, deixe-a de fora.
-- Priorize legibilidade mobile e safe areas para Meta Ads.
-- Mantenha textos e elementos editáveis sempre que possível.
+- Não invente fatos comerciais ou técnicos.
+- Nunca calcule/assuma desconto, parcela, PIX, frete, cupom, urgência ou estoque sem fonte.
+- Se a fonte estiver ausente/conflitante, omita a afirmação ou registre o conflito.
+- Mantenha elementos editáveis sempre que possível.
+- Priorize legibilidade mobile e hierarquia de performance.
 
-## Fluxo esperado
+## Fonte da verdade
 
-1. Verificar sistema e Tesseract.
-2. Ler `briefs/casa-do-fitness-promo.md`.
-3. Inspecionar todos os assets disponíveis.
-4. Criar uma pasta nova dentro de `outputs/` para cada tentativa.
-5. Criar um novo projeto `.tsrct`.
-6. Importar assets.
-7. Construir o criativo.
-8. Renderizar frame de preview.
-9. Renderizar filmstrip cobrindo toda a animação.
-10. Revisar layout, cortes, timing e legibilidade.
-11. Corrigir problemas.
-12. Exportar MP4 final.
-13. Manter o `.tsrct`, MP4 e previews juntos.
+Ordem:
+1. instrução explícita do usuário para a campanha;
+2. snapshot comercial versionado;
+3. informação claramente presente no asset autorizado;
+4. omitir.
 
-## Formatos preferenciais
+A página de produto e condições comerciais são voláteis. Registre timestamp/URL quando usar dados capturados.
 
-Primeiro teste:
+## Fluxo
+
+1. Verifique host e Tesseract.
+2. Leia brief + snapshot.
+3. Inspecione assets.
+4. Crie pasta nova em `outputs/`.
+5. Crie `Project.tsrct`.
+6. Importe assets.
+7. Construa a peça.
+8. Preview.
+9. Filmstrip.
+10. Audite com `docs/QA-PAID-MEDIA.md`.
+11. Corrija.
+12. Exporte MP4.
+13. Retenha projeto, filmstrip, brief, snapshot e notas.
+
+## Variações
+
+Depois de uma master aprovada:
+- prefira mudar uma hipótese por vez;
+- registre o que foi alterado;
+- adapte composição em vez de simplesmente esticar/cortar;
+- preserve a fonte comercial da master.
+
+Leia `docs/CREATIVE-MATRIX.md` para lotes.
+
+## Formatos iniciais
+
 - 1080x1920
-- 8–10 segundos
-- vertical 9:16
-- foco em performance / Meta Ads
-
-Depois, se solicitado:
 - 1080x1350
 - 1080x1080
 
-## Direção visual inicial
-
-- Visual premium, direto e comercial.
-- Produto é o elemento principal.
-- Não esconder partes importantes do produto com texto.
-- Animação suave, limpa e curta.
-- Evitar motion excessivo.
-- Headline deve ser entendida rapidamente.
-- CTA e oferta devem ter hierarquia clara.
-- Não usar assets gerados por IA no lugar do produto real.
+Não trate especificações de plataforma como permanentes; confirme requisitos atuais quando forem relevantes.
 
 ## Entrega
 
-Dentro da pasta da versão:
+A versão final deve conter, quando aplicável:
 - `Project.tsrct`
 - `Project.mp4`
 - `Previews/Filmstrip.png`
-- previews adicionais úteis
-- notas de decisões em `.tesseract-work/`
+- `brief.md`
+- `offer.json`
+- `notes.md`
 
 Ao final, informe:
-- caminho do MP4
-- caminho do projeto editável
-- resumo curto do que foi feito
-- qualquer limitação encontrada
+- MP4;
+- projeto editável;
+- fontes de verdade usadas;
+- variação/hipótese;
+- limitações ou conflitos encontrados.
