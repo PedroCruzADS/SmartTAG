@@ -1,0 +1,15 @@
+# local agent/tool state
+.tesseract-work/
+.claude/
+.codex/
+
+# rendered working files
+outputs/**/.tesseract-work/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# downloads / setup scratch
+.tmp/
+downloads/
