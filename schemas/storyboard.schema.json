@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tesseract-creative-lab.local/schemas/storyboard.schema.json",
+  "title": "Storyboard",
+  "type": "object",
+  "required": ["schema_version", "job", "selected_variant", "variants"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "job": {"type": "string", "minLength": 1},
+    "selected_variant": {"type": ["string", "null"]},
+    "variants": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["id", "hypothesis", "reference_grammar", "scenes"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "hypothesis": {"type": "string", "minLength": 1},
+          "reference_grammar": {"type": "array", "items": {"type": "string"}},
+          "scenes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "start_s", "duration_s", "purpose", "assets", "copy", "composition", "motion_intent", "transition_out", "truth_sources", "notes"],
+              "properties": {
+                "id": {"type": "string", "minLength": 1},
+                "start_s": {"type": "number", "minimum": 0},
+                "duration_s": {"type": "number", "exclusiveMinimum": 0},
+                "purpose": {"type": "string", "minLength": 1},
+                "assets": {"type": "array", "items": {"type": "string"}},
+                "copy": {"type": "object", "additionalProperties": {"type": "string"}},
+                "composition": {"type": "string"},
+                "motion_intent": {"type": "string"},
+                "transition_out": {"type": "string"},
+                "truth_sources": {"type": "array", "items": {"type": "string"}},
+                "notes": {"type": "string"}
+              },
+              "additionalProperties": true
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

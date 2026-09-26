@@ -2,58 +2,74 @@
 
 ## Por que 3 variantes
 
-Pedir 3 storyboards transforma a primeira decisão do agente em uma escolha comparável. As variantes devem testar direções, não trocar apenas cor ou headline.
+A primeira ideia do agente não deve virar render por inércia. Três direções permitem comparar hipóteses antes do custo de animação.
 
-## Critério de diferença
+## Diferença mínima
 
-Cada variante deve mudar pelo menos 2 destes eixos:
+Cada variante deve mudar pelo menos 2 eixos:
+
 - estrutura narrativa;
 - hook;
 - ritmo;
 - composição;
 - tratamento do produto;
-- forma de apresentar a oferta;
-- tipo de transição;
+- apresentação da oferta;
+- transições;
 - intensidade de câmera.
 
 ## Storyboard mínimo
 
-Cada cena precisa de:
-- `id`;
-- `start_s` / `duration_s`;
-- `purpose`;
-- `assets`;
-- `copy`;
-- `composition`;
-- `motion_intent`;
-- `transition_out`;
-- `truth_sources`;
-- `notes`.
+Cada cena registra:
 
-Use `schemas/storyboard.example.json` como referência.
+- id;
+- start_s / duration_s;
+- purpose;
+- assets;
+- copy;
+- composition;
+- motion_intent;
+- transition_out;
+- truth_sources;
+- notes.
+
+Salve em Storyboards/storyboard.json e valide contra schemas/storyboard.schema.json.
+
+## Seleção e gate
+
+selected_variant deve apontar para uma das três variantes.
+
+Se o modo do gate for human, o agente apresenta as direções e espera decisão. Ele não pode marcar aprovação humana por conta própria.
+
+Aprovação:
+
+~~~bash
+python scripts/approve_gate.py outputs/<job> storyboard --actor-type human --by "Nome"
+python scripts/validate_job.py outputs/<job> --stage storyboard
+~~~
 
 ## Still gate
 
-Depois da direção selecionada, gere um frame estático representativo de cada cena.
+Depois da direção selecionada, gere um frame estático por cena.
 
-Revise:
-- fidelidade do produto;
-- logo;
-- preço/condição;
-- contraste;
-- tipografia;
-- margens/safe area;
-- coerência entre cenas;
-- posição do CTA;
-- excesso de elementos.
+Nomeie pelo ID da cena:
 
-Não avance para motion se o still ainda está errado.
+~~~text
+A01.png
+A02.png
+A03.png
+~~~
 
-## Aprovação automática quando necessário
+Revise produto, logo, oferta, contraste, tipografia, margens, safe area, coerência e CTA.
 
-Se não houver usuário disponível para escolher entre as 3 direções:
-1. compare cada variante contra o brief;
-2. descarte qualquer uma que viole uma restrição;
-3. escolha a que cobre melhor objetivo, hierarquia e assets disponíveis;
-4. registre a decisão em `notes.md`;
-5. não invente critérios de preferência pessoal.
+A validação do estágio motion exige um still correspondente a cada cena selecionada e gate stills aprovado.
+
+## Auto
+
+Quando approval mode = auto:
+
+1. compare variantes contra brief/restrições;
+2. descarte violações;
+3. escolha por critérios explícitos;
+4. registre selected_variant e justificativa;
+5. aprove o gate com actor-type agent;
+6. não use gosto pessoal como critério oculto.

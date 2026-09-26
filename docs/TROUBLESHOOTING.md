@@ -1,32 +1,70 @@
 # Troubleshooting
 
 ## Tesseract não encontrado
-Rode `scripts/check-environment.ps1` e depois `scripts/bootstrap.ps1`.
-A skill oficial deve determinar a versão correta do CLI.
 
-## npx não encontrado
-Instale Node.js/npm ou peça ao agente para seguir manualmente a instalação oficial da Mirage.
+Rode:
 
-## Linux/WSL
-Não usar. O Tesseract atual exige macOS ou Windows 64-bit e execução local.
+~~~bash
+python scripts/check_environment.py
+python scripts/preflight_renderer.py --renderer tesseract
+~~~
+
+Prefira tsrct no PATH. A skill oficial deve orientar instalação e versão compatível.
+
+## Linux
+
+Tesseract 0.2.0 adicionou Linux x86_64 e ambientes cloud-agent compatíveis. WSL não deve ser tratado automaticamente como equivalente a uma distribuição suportada; siga os requisitos da skill/CLI instalada.
+
+## HyperFrames falha no doctor
+
+Rode:
+
+~~~bash
+python scripts/preflight_renderer.py --renderer hyperframes --deep
+~~~
+
+HyperFrames exige Node.js 22+ e FFmpeg/FFprobe. O doctor em JSON deve ser avaliado pelo campo ok, não apenas pelo exit code.
+
+## Remotion não inicia
+
+Confirme Node.js, dependências e versões compatíveis entre remotion e @remotion/*. Use as Agent Skills oficiais e o setup do projeto.
 
 ## Snapshot vazio/incompleto
-Algumas páginas renderizam preço/condições via JavaScript ou APIs internas. O script de snapshot captura dados estruturados disponíveis no HTML; ele não deve ser tratado como prova absoluta. Se preço/parcelamento não aparecerem, confirme por outra fonte autorizada.
+
+Algumas páginas renderizam preço/condições via JavaScript ou APIs. O snapshot captura HTML/JSON-LD disponível e é conservador quando há múltiplos preços.
+
+Se a condição não aparecer, use outra fonte autorizada. Não preencha por inferência.
+
+## Snapshot bloqueia URL privada
+
+É intencional: o script reduz risco de SSRF/prompt-driven requests a localhost/rede privada. Use --allow-private-network apenas quando você controla a URL e realmente precisa disso.
 
 ## Asset não abre
-Preserve o original. Gere derivado somente quando necessário e mantenha registro do processo.
+
+Preserve o original. Gere derivado somente quando necessário e mantenha o original + manifest.
 
 ## Fonte ausente
-Não substituir silenciosamente uma fonte de marca solicitada. Importe a fonte correta ou registre a limitação.
 
-## Filmstrip bom, vídeo ruim
-Assista ao MP4 final. Filmstrip é amostragem e pode não revelar flashes, frames únicos, áudio ou problemas entre amostras.
+Não substitua silenciosamente fonte de marca. Importe a correta ou registre limitação.
+
+## Preview bom, render ruim
+
+Preview/snapshot é amostragem. Valide o arquivo final com FFprobe:
+
+~~~bash
+python scripts/validate_render.py <arquivo.mp4> --canvas 1080x1920 --duration 9 --fps 30
+~~~
 
 ## Condição mudou
-Capture um snapshot novo e rode:
 
-```powershell
-python .\scripts\compare_offer.py .\data\produto\offer-old.json .\data\produto\offer-new.json
-```
+Capture snapshot novo e compare:
 
-Depois use `prompts/offer-refresh.txt`.
+~~~bash
+python scripts/compare_offer.py old.json new.json --fail-on-change
+~~~
+
+Depois use prompts/offer-refresh.txt.
+
+## Arquivos não aparecem no Git
+
+assets/, data/ e outputs/ são ignorados por padrão para evitar vazamento/bloat. Isso é intencional. Versione mídia deliberadamente com solução apropriada quando necessário.

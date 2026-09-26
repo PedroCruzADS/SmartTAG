@@ -1,41 +1,62 @@
 # Casa do Fitness — Tesseract Creative Lab
 
-Laboratório de produção de criativos de **mídia paga** com agentes (Claude Code/Codex) e múltiplos renderers.
+Pipeline local e agent-first para criar criativos de mídia paga a partir de **produto real, oferta verificável, brand kit, referências e aprovação explícita**.
 
-O Lab não é mais "um repo para testar Tesseract". Ele é o sistema de produção: recebe produto real, oferta verificada, identidade, referências e direção; cria alternativas de storyboard; aprova frames estáticos; escolhe o renderer adequado; anima; revisa; exporta versões para mídia.
+O nome histórico continua Tesseract Creative Lab, mas o sistema é multi-renderer:
+
+- **Tesseract** — edição, footage, masks, compositing, retiming e acabamento.
+- **HyperFrames** — motion graphics determinístico em HTML/CSS/GSAP.
+- **Remotion** — React, templates, parametrização e lotes.
+- **Hybrid** — combina render programático com acabamento editorial.
+- **21st.dev** — opcional para cenas de UI/software; não é renderer.
 
 ## Princípio central
 
-**Produto real + condição verificada + referências explícitas + storyboard antes de animar + QA antes do render final.**
+**Contexto verificável → 3 storyboards → stills → aprovação → motion → preview → aprovação → render final → QA.**
 
-Nunca invente preço, desconto, parcelamento, PIX, frete, cupom, estoque, benefício técnico, produto, logo ou selo.
+Não existe “one prompt” mágico no Lab. O ganho vem de reduzir o espaço de decisão do agente e tornar cada etapa auditável.
 
-## Stack de render
+## Requisitos
 
-O renderer é escolhido por job:
+- Python 3.10+
+- Git
+- Node.js/npm para instalar skills e para HyperFrames/Remotion
+- FFmpeg/FFprobe para HyperFrames e QA técnico de vídeo
+- CLI do renderer escolhido
 
-- **Tesseract** — edição/compositing, footage, máscaras, retiming e acabamento.
-- **HyperFrames** — motion graphics determinístico em HTML/CSS/GSAP, ótimo para agentes e iteração rápida.
-- **Remotion** — vídeo programático em React, bom para templates, parametrização e lotes.
-- **Hybrid** — combina render programático e acabamento no Tesseract.
-- **21st.dev** — opcional; use principalmente quando o criativo depende de UI realista/componentes de software.
+Tesseract atual suporta macOS, Windows e Linux x86_64 em ambientes compatíveis. A skill oficial e a versão instalada são a fonte de verdade para instalação e comandos.
 
-Veja `docs/RENDERER-ROUTING.md`.
+## Setup
 
-## Início rápido
-
-~~~powershell
+~~~bash
 git clone https://github.com/PedroCruzADS/tesseract-creative-lab.git
 cd tesseract-creative-lab
-powershell -ExecutionPolicy Bypass -File .\scripts\bootstrap.ps1
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
+python scripts/bootstrap.py
+python scripts/check_environment.py
 ~~~
 
-O bootstrap instala/atualiza as skills de Tesseract, HyperFrames e Remotion quando as ferramentas necessárias estiverem disponíveis. 21st.dev fica opcional.
+No Windows, os wrappers PowerShell continuam disponíveis.
 
-## Workflow recomendado
+O bootstrap instala/atualiza skills de Tesseract, HyperFrames e Remotion. 21st.dev é opt-in:
 
-### 1. Salve os assets reais
+~~~bash
+python scripts/bootstrap.py --install-21st
+~~~
+
+## Criar um job
+
+~~~bash
+python scripts/new_creative.py --slug esteira-b55 --objective conversion --renderer auto --canvas 1080x1920 --duration-seconds 9 --fps 30 --approval-mode human
+~~~
+
+O job é versionado automaticamente e nasce com Storyboards, Stills, Previews, Renders, Source, brief.md, request.json, approvals.json e notes.md.
+
+human é o default: o agente não pode autoaprovar gates humanos. Use approval-mode auto somente quando quiser execução autônoma deliberadamente.
+
+## Assets e oferta
+
+Estrutura recomendada:
 
 ~~~text
 assets/<produto>/
@@ -47,95 +68,68 @@ assets/<produto>/
   references/
 ~~~
 
-Em `references/`, salve links, screenshots autorizados ou notas de vídeos de referência. Referência serve para **pacing, composição, tipografia, câmera e transições**; não para copiar marca, texto ou frames de terceiros.
+Valide e congele os assets autorizados:
 
-### 2. Capture a condição comercial
-
-~~~powershell
-python .\scripts\product_snapshot.py "URL_DO_PRODUTO" --out ".\data\produto\offer.json"
+~~~bash
+python scripts/validate_assets.py assets/esteira-b55 --strict
+python scripts/asset_manifest.py assets/esteira-b55 --out outputs/<job>/Source/assets-manifest.json
 ~~~
 
-A página é volátil. O snapshot registra a condição observada; informações críticas ainda devem ser conferidas.
+Capture a página de produto:
 
-### 3. Crie um job
-
-~~~powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\new-creative.ps1 -Slug "produto" -Objective "conversion" -Renderer "auto"
+~~~bash
+python scripts/product_snapshot.py "https://www.casadofitness.com.br/produto" --out data/esteira-b55/offer.json
 ~~~
 
-O job já nasce com pastas para `Storyboards`, `Stills`, `Renders`, `Previews` e notas de direção.
+O snapshot é evidência, não verdade absoluta. Se houver múltiplos preços/variantes, o script evita escolher silenciosamente.
 
-### 4. Faça o preflight
+## Workflow e gates
 
-~~~powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\preflight-renderer.ps1 -Renderer auto
+Valide cada etapa:
+
+~~~bash
+python scripts/validate_job.py outputs/<job> --stage ingest
+python scripts/validate_job.py outputs/<job> --stage storyboard
+python scripts/validate_job.py outputs/<job> --stage motion
+python scripts/validate_job.py outputs/<job> --stage render
+python scripts/validate_job.py outputs/<job> --stage final
 ~~~
 
-### 5. Abra no Claude Code ou Codex
+Aprovação humana:
 
-Use:
-
-~~~text
-Leia AGENTS.md, docs/WORKFLOW.md e o brief do job.
-Inspecione os assets e referências.
-Gere 3 storyboards realmente diferentes.
-Gere um still por cena antes de animar.
-Escolha o renderer pelo docs/RENDERER-ROUTING.md.
-Faça QA visual e comercial antes do export.
+~~~bash
+python scripts/approve_gate.py outputs/<job> storyboard --actor-type human --by "Pedro" --note "Direção B aprovada"
 ~~~
 
-## Fluxo em uma linha
+Para gates auto, o agente pode registrar aprovação com actor-type agent. Um gate configurado como human rejeita aprovação de agente.
 
-~~~text
-produto + oferta + brand kit + referências
-                  ↓
-       3 direções de storyboard
-                  ↓
-          still de cada cena
-                  ↓
-          seleção / correção
-                  ↓
-     Tesseract | HyperFrames | Remotion
-                  ↓
-      notas de direção específicas
-                  ↓
-        9:16 | 4:5 | 1:1 + QA
+## QA técnico do render
+
+~~~bash
+python scripts/validate_render.py outputs/<job>/Renders/master.mp4 --canvas 1080x1920 --duration 9 --fps 30
 ~~~
 
-## Estrutura
+O script usa FFprobe para validar stream de vídeo, resolução, FPS, duração e presença de áudio.
 
-~~~text
-assets/      assets reais e referências
-briefs/      briefs e template
-data/        snapshots comerciais
-docs/        workflow, routing, QA, direção e guardrails
-outputs/     jobs, storyboards, stills, projetos e renders
-prompts/     prompts reutilizáveis para agentes
-schemas/     exemplos de request e storyboard
-scripts/     setup, ingestão, preflight e validação
-~~~
+## Git e arquivos pesados
 
-## Documentos importantes
+assets/, data/ e outputs/ ficam ignorados por padrão para evitar publicar material de campanha, snapshots voláteis e vídeos pesados sem intenção. Os placeholders/documentação continuam versionados.
 
-- `docs/WORKFLOW.md` — fluxo completo em gates.
-- `docs/RENDERER-ROUTING.md` — quando usar Tesseract, HyperFrames, Remotion ou híbrido.
-- `docs/REFERENCE-DIRECTION.md` — como extrair linguagem visual de referências sem copiar.
-- `docs/STORYBOARD-AND-STILLS.md` — 3 variantes e aprovação por still.
-- `docs/DIRECTOR-NOTES.md` — vocabulário para iteração precisa.
-- `docs/OFFER-TRUTH.md` — fonte da verdade de preço/condições.
-- `docs/QA-PAID-MEDIA.md` — checklist antes de entregar.
-- `docs/PAID-MEDIA-PLAYBOOK.md` — princípios de criativos de performance.
-- `docs/CREATIVE-MATRIX.md` — variações que testam hipóteses.
+Se um projeto precisar versionar mídia, use armazenamento apropriado ou Git LFS de forma deliberada.
 
-## Prompts prontos
+## Documentos principais
 
-- `prompts/product-ad-master.txt`
-- `prompts/reference-deconstruction.txt`
-- `prompts/storyboard-3x.txt`
-- `prompts/director-pass.txt`
-- `prompts/variant-batch.txt`
-- `prompts/creative-audit.txt`
+- AGENTS.md — contrato operacional do agente.
+- docs/WORKFLOW.md — gates ponta a ponta.
+- docs/RENDERER-ROUTING.md — escolha de renderer.
+- docs/OFFER-TRUTH.md — verdade comercial.
+- docs/REFERENCE-DIRECTION.md — referências e segurança.
+- docs/STORYBOARD-AND-STILLS.md — 3 variantes e still gate.
+- docs/QA-PAID-MEDIA.md — QA criativo/comercial/técnico.
+- docs/TROUBLESHOOTING.md — falhas comuns.
 
-## Sobre "one prompt"
+## Schemas e CI
 
-O Lab assume que o melhor resultado normalmente não vem de uma frase mágica. O contexto é parte do trabalho: assets, brand kit, referências, oferta, storyboard, stills e notas específicas reduzem o espaço de decisão do agente e tornam o vídeo reproduzível.
+schemas/ contém JSON Schemas Draft 2020-12, não apenas exemplos. A CI valida sintaxe Python, exemplos de schema e regras básicas de segurança/versionamento.
+
+O Lab deve permanecer **renderer-agnostic, asset-faithful e source-of-truth driven**.

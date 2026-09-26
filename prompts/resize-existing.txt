@@ -1,13 +1,14 @@
-Adapte a peça aprovada para outro formato.
+Adapte uma master aprovada para outro formato.
 
-Não faça simples stretch/crop cego.
-Recomponha respeitando hierarquia e safe areas:
-1. produto;
-2. headline;
-3. oferta;
-4. CTA;
-5. logo.
+Não faça stretch/crop cego.
 
-Preserve conteúdo, identidade, timing essencial e assets.
-Não invente elementos para preencher espaço.
-Gere preview/filmstrip do novo formato antes do MP4.
+1. leia a master, request, manifest, snapshot e approvals;
+2. preserve conteúdo comercial e produto;
+3. recomponha produto, headline, oferta, CTA e logo para o novo aspect ratio;
+4. preserve timing essencial quando ainda funcionar;
+5. não invente elementos para preencher espaço;
+6. gere still/preview apropriado ao renderer;
+7. faça QA mobile/safe areas;
+8. valide tecnicamente o render final.
+
+Registre formato fonte e formato destino em notes.md.

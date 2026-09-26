@@ -1,4 +1,4 @@
-Assista/inspecione o preview atual como diretor.
+Inspecione o preview atual como diretor.
 
 Produza notas por cena usando:
 - problema observável;
@@ -8,9 +8,10 @@ Produza notas por cena usando:
 - tipo de corte/transição;
 - itens que não podem mudar.
 
-Prefira comandos como:
-"slow zoom to 0.7x", "hard cut here", "hold price +8 frames", "push in on CTA", "move product 5% right".
+Prefira comandos específicos como slow zoom to 0.7x, hard cut here, hold price +8 frames, push in on CTA, move product 5% right.
 
-Evite "make it better", "premium", "cinematic" sem parâmetros.
+Evite make it better, premium ou cinematic sem parâmetros.
 
-Aplique as mudanças de forma localizada. Não regenere a peça inteira se uma alteração pontual resolver.
+Aplique mudanças localmente. Não regenere a peça inteira se uma alteração pontual resolver.
+
+Depois gere novo preview e repita QA antes de solicitar/aplicar gate final_preview.

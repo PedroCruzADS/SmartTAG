@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tesseract-creative-lab.local/schemas/product-offer.schema.json",
+  "title": "Product offer snapshot",
+  "type": "object",
+  "required": ["schema_version", "source_url", "captured_at", "product", "commercial", "media"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "requested_url": {"type": "string", "format": "uri"},
+    "source_url": {"type": "string", "format": "uri"},
+    "captured_at": {"type": "string", "format": "date-time"},
+    "http": {
+      "type": "object",
+      "properties": {
+        "status": {"type": "integer", "minimum": 100, "maximum": 599},
+        "content_type": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "product": {
+      "type": "object",
+      "required": ["name", "sku", "brand", "availability"],
+      "properties": {
+        "name": {"type": "string"},
+        "sku": {"type": "string"},
+        "brand": {"type": "string"},
+        "availability": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "commercial": {
+      "type": "object",
+      "required": ["price", "price_currency", "old_price", "discount_percent", "pix_price", "installments", "installment_value", "coupon", "shipping"],
+      "properties": {
+        "price": {"type": ["string", "number", "null"]},
+        "price_currency": {"type": ["string", "null"]},
+        "old_price": {"type": ["string", "number", "null"]},
+        "discount_percent": {"type": ["string", "number", "null"]},
+        "pix_price": {"type": ["string", "number", "null"]},
+        "installments": {"type": ["integer", "string", "null"]},
+        "installment_value": {"type": ["string", "number", "null"]},
+        "coupon": {"type": ["string", "null"]},
+        "shipping": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "media": {
+      "type": "object",
+      "required": ["main_image", "gallery"],
+      "properties": {
+        "main_image": {"type": "string"},
+        "gallery": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "evidence": {"type": "object"},
+    "notes": {"type": "string"}
+  },
+  "additionalProperties": true
+}

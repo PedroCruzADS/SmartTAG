@@ -1,16 +1,20 @@
-Leia AGENTS.md e briefs/casa-do-fitness-promo.md.
+Leia AGENTS.md, docs/WORKFLOW.md e briefs/casa-do-fitness-promo.md.
 
-Use Tesseract e somente os assets reais existentes em assets/.
-Crie um primeiro criativo vertical 1080x1920, com 8 a 10 segundos, destinado a Meta Ads.
+Crie um job real de mídia paga usando somente assets autorizados.
 
-Requisitos:
-- não inventar nem redesenhar produto;
-- não alterar características físicas dos assets;
-- não inventar logo, preço, desconto ou condição comercial;
-- manter produto como foco;
-- motion limpo e curto;
-- texto legível em celular;
-- gerar preview e filmstrip antes do export;
-- revisar o filmstrip e corrigir problemas antes de exportar.
+Regras:
+1. valide ingestão;
+2. deconstrua referências, se existirem;
+3. gere 3 storyboards estruturalmente diferentes;
+4. respeite o gate storyboard;
+5. gere um still por cena escolhida;
+6. respeite o gate stills;
+7. escolha o renderer por docs/RENDERER-ROUTING.md;
+8. produza motion e preview;
+9. faça QA e director pass;
+10. respeite o gate final_preview;
+11. exporte e valide tecnicamente o render.
 
-Entregue o projeto editável .tsrct e o MP4 final dentro de outputs/.
+Não invente produto, logo, preço, desconto, claim, cupom, frete ou especificação.
+
+Se um gate estiver configurado como human, não o aprove por conta própria.

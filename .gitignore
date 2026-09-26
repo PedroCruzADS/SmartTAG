@@ -2,14 +2,29 @@
 .tesseract-work/
 .claude/
 .codex/
+.hyperframes/
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
 
-# rendered working files
-outputs/**/.tesseract-work/
+# local assets and commercial snapshots (keep only docs/placeholders)
+assets/*
+!assets/README.md
+data/*
+!data/.gitkeep
 
-# OS
-Thumbs.db
-.DS_Store
+# generated jobs/renders stay local by default
+outputs/*
+!outputs/.gitkeep
 
 # downloads / setup scratch
 .tmp/
 downloads/
+
+# OS/editor
+Thumbs.db
+.DS_Store
+.vscode/
+.idea/
