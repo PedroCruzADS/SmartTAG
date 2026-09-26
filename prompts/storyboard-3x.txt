@@ -1,0 +1,12 @@
+Com base no brief, request, offer snapshot, assets e deconstrução de referências, produza 3 storyboards.
+
+Regras:
+- as 3 variantes devem ser estruturalmente diferentes;
+- cada uma deve ter hipótese clara;
+- use apenas assets autorizados e claims comprovados;
+- cada cena deve ter duração, propósito, asset, copy, composição, motion intent, transição e truth sources;
+- não anime ainda;
+- não altere características do produto;
+- escreva a saída seguindo `schemas/storyboard.example.json`.
+
+Depois faça uma checagem de restrições. Se uma variante violar o brief, corrija antes de apresentá-la.

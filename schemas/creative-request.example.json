@@ -2,11 +2,59 @@
   "product_slug": "produto-exemplo",
   "objective": "conversion",
   "channel": "meta_ads",
-  "placements": ["reels","stories"],
+  "placements": [
+    "reels",
+    "stories"
+  ],
   "canvas": "1080x1920",
   "duration_seconds": 9,
+  "fps": 30,
+  "renderer": "auto",
   "offer_snapshot": "data/produto-exemplo/offer.json",
   "assets_dir": "assets/produto-exemplo",
-  "copy": {"hook":"","headline":"","support":"","cta":"Confira"},
-  "variants": {"hooks":2,"ctas":2,"formats":["1080x1920","1080x1350","1080x1080"]}
+  "brand": {
+    "logo": "",
+    "fonts": [],
+    "colors": [],
+    "rules": []
+  },
+  "references": [
+    {
+      "source": "https://www.whatships.com/...",
+      "use_for": [
+        "pacing",
+        "camera",
+        "transitions"
+      ],
+      "do_not_copy": [
+        "brand",
+        "copy",
+        "music",
+        "exact sequence"
+      ]
+    }
+  ],
+  "copy": {
+    "hook": "",
+    "headline": "",
+    "support": "",
+    "cta": "Confira"
+  },
+  "storyboard": {
+    "variants": 3,
+    "require_stills_before_motion": true
+  },
+  "variants": {
+    "hooks": 2,
+    "ctas": 2,
+    "formats": [
+      "1080x1920",
+      "1080x1350",
+      "1080x1080"
+    ]
+  },
+  "constraints": {
+    "no_product_recreation": true,
+    "no_unverified_claims": true
+  }
 }

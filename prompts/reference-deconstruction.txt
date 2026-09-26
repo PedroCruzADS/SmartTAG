@@ -1,0 +1,20 @@
+Analise as referências declaradas no brief/request como diretor de motion.
+
+Não reproduza o vídeo literalmente. Para cada referência, extraia:
+- hook;
+- pacing;
+- duração média de cena;
+- densidade de informação;
+- composição/grid;
+- escala e peso tipográfico;
+- relação produto/texto;
+- movimentos de câmera;
+- tipos de transição;
+- fundo/luz/textura;
+- payoff final;
+- atributos a evitar/copiar NÃO.
+
+Depois gere uma "motion grammar" curta que possa ser aplicada aos assets e à identidade deste job.
+
+Se houver duas referências, diga explicitamente quais atributos vêm de A e quais vêm de B.
+Brand kit, verdade comercial e restrições do produto sempre têm prioridade.

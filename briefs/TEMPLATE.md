@@ -8,7 +8,7 @@
 - SKU:
 - URL:
 - Público:
-- Principal benefício:
+- Principal benefício comprovado:
 
 ## Oferta — fonte da verdade
 - Snapshot:
@@ -23,11 +23,34 @@
 
 Preencher apenas o que estiver comprovado.
 
+## Brand kit
+- Logo:
+- Cores:
+- Fontes:
+- Elementos gráficos:
+- Regras que não podem ser quebradas:
+
+## Referências
+### Referência A
+- URL/arquivo:
+- Usar:
+- Não copiar:
+
+### Referência B
+- URL/arquivo:
+- Usar:
+- Não copiar:
+
 ## Formato
-- Canvas:
+- Canvas principal:
 - Duração:
 - Canal:
 - Placement:
+- FPS:
+
+## Renderer
+- Preferência: auto | tesseract | hyperframes | remotion | hybrid
+- Motivo, se forçado:
 
 ## Copy
 - Hook:
@@ -44,9 +67,19 @@ Preencher apenas o que estiver comprovado.
 - safe areas / observações
 
 ## Direção visual
-<descrição curta>
+<descrição curta e operacional>
+
+## Storyboard
+Gerar 3 variantes antes de motion.
+- A:
+- B:
+- C:
+- Direção escolhida:
 
 ## Variações desejadas
 - hook A/B
 - CTA A/B
 - 9:16 / 4:5 / 1:1
+
+## Notas de direção
+Registrar mudanças pós-preview com cena + parâmetro + intensidade.

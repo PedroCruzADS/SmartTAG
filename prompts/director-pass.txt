@@ -1,0 +1,16 @@
+Assista/inspecione o preview atual como diretor.
+
+Produza notas por cena usando:
+- problema observável;
+- mudança concreta;
+- timing em frames/segundos quando possível;
+- amplitude/posição/escala quando possível;
+- tipo de corte/transição;
+- itens que não podem mudar.
+
+Prefira comandos como:
+"slow zoom to 0.7x", "hard cut here", "hold price +8 frames", "push in on CTA", "move product 5% right".
+
+Evite "make it better", "premium", "cinematic" sem parâmetros.
+
+Aplique as mudanças de forma localizada. Não regenere a peça inteira se uma alteração pontual resolver.

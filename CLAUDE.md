@@ -3,10 +3,21 @@
 Leia e siga integralmente `AGENTS.md`.
 
 Para qualquer tarefa de vídeo:
-1. Leia o brief correspondente em `briefs/`.
-2. Inspecione `assets/`.
-3. Use as skills oficiais do Tesseract.
-4. Verifique o CLI e sua versão antes de produzir.
-5. Gere preview e filmstrip antes do MP4 final.
+1. Leia o brief, `request.json` e o snapshot comercial.
+2. Inspecione `assets/`, inclusive `references/`.
+3. Leia `docs/RENDERER-ROUTING.md` e escolha o renderer pelo trabalho, não por preferência.
+4. Gere 3 storyboards antes da animação.
+5. Gere um still por cena antes de renderizar movimento.
+6. Faça preview/QA e itere com notas específicas de direção.
 
-Não tente substituir o Tesseract por FFmpeg, MoviePy ou outro renderer para o criativo principal, a menos que o usuário peça explicitamente. Ferramentas auxiliares podem ser usadas somente para inspeção ou preparação de mídia quando isso estiver de acordo com a documentação do Tesseract.
+## Skills
+
+Quando disponíveis:
+- Tesseract: use as skills oficiais instaladas.
+- HyperFrames: rode `npx hyperframes skills update` e use `/hyperframes`.
+- Remotion: use as skills oficiais; `/remotion-best-practices` cobre o conjunto.
+- 21st.dev: use apenas para cenas de UI quando melhorar a fidelidade do produto de software.
+
+Tesseract **não é obrigatório** para todo job. HyperFrames, Remotion e rotas híbridas são válidos.
+
+Não substitua assets reais por invenções. Não use informação comercial fora das fontes autorizadas.
