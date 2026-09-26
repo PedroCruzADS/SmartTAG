@@ -40,12 +40,18 @@ def main() -> None:
         ap.error(f"gate {args.gate} exige aprovacao humana; agente nao pode aprova-lo.")
 
     item["status"] = args.status
-    item["approved_at"] = datetime.now(timezone.utc).isoformat() if args.status == "approved" else None
+    item["approved_at"] = (
+        datetime.now(timezone.utc).isoformat()
+        if args.status == "approved"
+        else None
+    )
     item["approved_by"] = args.by
     item["actor_type"] = args.actor_type
     item["note"] = args.note
-    path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "
-", encoding="utf-8")
+    path.write_text(
+        json.dumps(data, ensure_ascii=False, indent=2) + chr(10),
+        encoding="utf-8",
+    )
     print(f"{args.gate}: {args.status} por {args.by} ({args.actor_type})")
 
 

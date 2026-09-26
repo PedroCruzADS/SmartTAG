@@ -14,7 +14,12 @@ def version(command: str, *args: str) -> str | None:
     if not path:
         return None
     try:
-        return subprocess.check_output([path, *args], text=True, stderr=subprocess.STDOUT, timeout=8).strip()
+        return subprocess.check_output(
+            [path, *args],
+            text=True,
+            stderr=subprocess.STDOUT,
+            timeout=8,
+        ).strip()
     except (OSError, subprocess.SubprocessError):
         return "detected (version unavailable)"
 
@@ -25,7 +30,8 @@ def collect() -> dict[str, object]:
         "node": version("node", "--version"),
         "npm": version("npm", "--version"),
         "npx": version("npx", "--version"),
-        "python": version("python", "--version") or version("python3", "--version"),
+        "python": version("python", "--version")
+        or version("python3", "--version"),
         "ffmpeg": version("ffmpeg", "-version"),
         "ffprobe": version("ffprobe", "-version"),
         "claude": version("claude", "--version"),
@@ -33,7 +39,10 @@ def collect() -> dict[str, object]:
         "tsrct": tesseract_cli(),
     }
     return {
-        "platform": {"system": platform.system(), "machine": platform.machine()},
+        "platform": {
+            "system": platform.system(),
+            "machine": platform.machine(),
+        },
         "node_major": node_major(),
         "commands": commands,
         "renderers": renderer_status(),
@@ -41,7 +50,9 @@ def collect() -> dict[str, object]:
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser(description="Checa o ambiente sem instalar ou modificar ferramentas.")
+    ap = argparse.ArgumentParser(
+        description="Checa o ambiente sem instalar ou modificar ferramentas."
+    )
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args()
     info = collect()
@@ -54,16 +65,23 @@ def main() -> None:
     print(f"OS: {info['platform']['system']} / {info['platform']['machine']}")
     for name, value in info["commands"].items():
         status = "[OK]" if value else "[--]"
-        first = value.splitlines()[0] if isinstance(value, str) and value else "not found"
+        first = (
+            value.splitlines()[0]
+            if isinstance(value, str) and value
+            else "not found"
+        )
         print(f"{status} {name}: {first}")
 
-    print("
-== Renderer readiness ==")
+    print()
+    print("== Renderer readiness ==")
     for name, data in info["renderers"].items():
         print(f"{'[OK]' if data['ready'] else '[--]'} {name}")
 
-    print("
-Use scripts/preflight_renderer.py --renderer <nome> para gate de um renderer.")
+    print()
+    print(
+        "Use scripts/preflight_renderer.py --renderer <nome> "
+        "para gate de um renderer."
+    )
 
 
 if __name__ == "__main__":

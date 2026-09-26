@@ -5,18 +5,40 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
-from tooling import VALID_APPROVAL, VALID_CANVASES, VALID_FPS, VALID_RENDERERS, repo_root, validate_slug
+from tooling import (
+    VALID_APPROVAL,
+    VALID_CANVASES,
+    VALID_FPS,
+    VALID_RENDERERS,
+    repo_root,
+    validate_slug,
+)
 
-FORMAT_LABELS = {"1080x1920": "9x16", "1080x1350": "4x5", "1080x1080": "1x1"}
+FORMAT_LABELS = {
+    "1080x1920": "9x16",
+    "1080x1350": "4x5",
+    "1080x1080": "1x1",
+}
 
 
-def next_job_dir(root: Path, slug: str, objective: str, canvas: str, now: datetime) -> Path:
-    stem = f"{now.strftime('%Y%m%d')}_{slug}_{objective}_{FORMAT_LABELS[canvas]}"
+def next_job_dir(
+    root: Path,
+    slug: str,
+    objective: str,
+    canvas: str,
+    now: datetime,
+) -> Path:
+    stem = (
+        f"{now.strftime('%Y%m%d')}_{slug}_{objective}_"
+        f"{FORMAT_LABELS[canvas]}"
+    )
     for version in range(1, 100):
         candidate = root / f"{stem}_v{version:02d}"
         if not candidate.exists():
             return candidate
-    raise RuntimeError(f"Nao foi possivel encontrar versao livre para {stem} (v01-v99).")
+    raise RuntimeError(
+        f"Nao foi possivel encontrar versao livre para {stem} (v01-v99)."
+    )
 
 
 def create_job(
@@ -47,7 +69,13 @@ def create_job(
     outputs = root / "outputs"
     outputs.mkdir(parents=True, exist_ok=True)
     job = next_job_dir(outputs, slug, objective, canvas, now)
-    for name in ("Storyboards", "Stills", "Previews", "Renders", "Source"):
+    for name in (
+        "Storyboards",
+        "Stills",
+        "Previews",
+        "Renders",
+        "Source",
+    ):
         (job / name).mkdir(parents=True, exist_ok=True)
 
     job_id = job.name
@@ -123,13 +151,41 @@ Gerar 3 variantes antes de motion e um still por cena antes do render.
         "renderer": renderer,
         "offer_snapshot": f"data/{slug}/offer.json",
         "assets_dir": f"assets/{slug}",
-        "brand": {"logo": "", "fonts": [], "colors": [], "rules": []},
+        "brand": {
+            "logo": "",
+            "fonts": [],
+            "colors": [],
+            "rules": [],
+        },
         "references": [],
-        "copy": {"hook": "", "headline": "", "support": "", "cta": ""},
-        "storyboard": {"variants": 3, "require_stills_before_motion": True},
-        "approval": {"storyboard": approval_mode, "stills": approval_mode, "final_preview": approval_mode},
-        "variants": {"hooks": 2, "ctas": 2, "formats": ["1080x1920", "1080x1350", "1080x1080"]},
-        "constraints": {"no_product_recreation": True, "no_unverified_claims": True},
+        "copy": {
+            "hook": "",
+            "headline": "",
+            "support": "",
+            "cta": "",
+        },
+        "storyboard": {
+            "variants": 3,
+            "require_stills_before_motion": True,
+        },
+        "approval": {
+            "storyboard": approval_mode,
+            "stills": approval_mode,
+            "final_preview": approval_mode,
+        },
+        "variants": {
+            "hooks": 2,
+            "ctas": 2,
+            "formats": [
+                "1080x1920",
+                "1080x1350",
+                "1080x1080",
+            ],
+        },
+        "constraints": {
+            "no_product_recreation": True,
+            "no_unverified_claims": True,
+        },
     }
 
     def gate() -> dict[str, object]:
@@ -142,36 +198,86 @@ Gerar 3 variantes antes de motion e um still por cena antes do render.
             "note": "",
         }
 
-    approvals = {"schema_version": 1, "gates": {"storyboard": gate(), "stills": gate(), "final_preview": gate()}}
+    approvals = {
+        "schema_version": 1,
+        "gates": {
+            "storyboard": gate(),
+            "stills": gate(),
+            "final_preview": gate(),
+        },
+    }
 
-    (job / "brief.md").write_text(brief, encoding="utf-8")
-    (job / "request.json").write_text(json.dumps(request, ensure_ascii=False, indent=2) + "
-", encoding="utf-8")
-    (job / "approvals.json").write_text(json.dumps(approvals, ensure_ascii=False, indent=2) + "
-", encoding="utf-8")
-    (job / "notes.md").write_text("# Notes
+    request_payload = (
+        json.dumps(request, ensure_ascii=False, indent=2) + chr(10)
+    )
+    approvals_payload = (
+        json.dumps(approvals, ensure_ascii=False, indent=2) + chr(10)
+    )
+    notes = """# Notes
 
 ## Renderer decision
 - Pending
 
 ## Director notes
-", encoding="utf-8")
+"""
+
+    (job / "brief.md").write_text(brief, encoding="utf-8")
+    (job / "request.json").write_text(
+        request_payload,
+        encoding="utf-8",
+    )
+    (job / "approvals.json").write_text(
+        approvals_payload,
+        encoding="utf-8",
+    )
+    (job / "notes.md").write_text(notes, encoding="utf-8")
     print(f"Job criado: {job.relative_to(root).as_posix()}")
     return job
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser(description="Cria um job seguro e versionado do Tesseract Creative Lab.")
+    ap = argparse.ArgumentParser(
+        description=(
+            "Cria um job seguro e versionado "
+            "do Tesseract Creative Lab."
+        )
+    )
     ap.add_argument("--slug", required=True)
     ap.add_argument("--objective", default="conversion")
-    ap.add_argument("--renderer", choices=VALID_RENDERERS, default="auto")
+    ap.add_argument(
+        "--renderer",
+        choices=VALID_RENDERERS,
+        default="auto",
+    )
     ap.add_argument("--duration-seconds", type=int, default=9)
-    ap.add_argument("--fps", type=int, choices=VALID_FPS, default=30)
-    ap.add_argument("--canvas", choices=VALID_CANVASES, default="1080x1920")
-    ap.add_argument("--approval-mode", choices=VALID_APPROVAL, default="human")
+    ap.add_argument(
+        "--fps",
+        type=int,
+        choices=VALID_FPS,
+        default=30,
+    )
+    ap.add_argument(
+        "--canvas",
+        choices=VALID_CANVASES,
+        default="1080x1920",
+    )
+    ap.add_argument(
+        "--approval-mode",
+        choices=VALID_APPROVAL,
+        default="human",
+    )
     args = ap.parse_args()
     try:
-        create_job(repo_root(), args.slug, args.objective, args.renderer, args.duration_seconds, args.fps, args.canvas, args.approval_mode)
+        create_job(
+            repo_root(),
+            args.slug,
+            args.objective,
+            args.renderer,
+            args.duration_seconds,
+            args.fps,
+            args.canvas,
+            args.approval_mode,
+        )
     except (ValueError, RuntimeError) as exc:
         ap.error(str(exc))
 
