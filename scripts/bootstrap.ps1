@@ -3,14 +3,18 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+$isWindows = [System.Environment]::OSVersion.Platform -eq [System.PlatformID]::Win32NT
 
 Write-Host "== Casa do Fitness / Tesseract Creative Lab =="
-
-if (-not [Environment]::Is64BitOperatingSystem) {
-    throw "Este projeto requer Windows 64-bit para a rota Tesseract."
-}
-
 Write-Host "OS:" ([Environment]::OSVersion.VersionString)
+Write-Host "64-bit:" ([Environment]::Is64BitOperatingSystem)
+
+if (-not $isWindows) {
+    Write-Warning "Tesseract e uma rota local dependente de ambiente suportado. HyperFrames/Remotion continuam disponiveis."
+}
+if (-not [Environment]::Is64BitOperatingSystem) {
+    Write-Warning "Arquitetura 32-bit detectada; a rota Tesseract pode nao funcionar."
+}
 
 $nodeOk = $false
 if (Get-Command node -ErrorAction SilentlyContinue) {

@@ -3,6 +3,7 @@ param(
 )
 
 $ErrorActionPreference = "Continue"
+$isWindows = [System.Environment]::OSVersion.Platform -eq [System.PlatformID]::Win32NT
 
 function Has-Command($name) {
   return [bool](Get-Command $name -ErrorAction SilentlyContinue)
@@ -19,14 +20,18 @@ if ($hasNode) {
 
 $hasNpx = Has-Command "npx"
 $hasFfmpeg = Has-Command "ffmpeg"
-$tesseract = Join-Path $env:LOCALAPPDATA "Tesseract\bin\tsrct.cmd"
-$hasTesseract = Test-Path $tesseract
+$hasTesseract = $false
+
+if ($isWindows -and $env:LOCALAPPDATA) {
+  $tesseract = Join-Path $env:LOCALAPPDATA "Tesseract\bin\tsrct.cmd"
+  $hasTesseract = Test-Path $tesseract
+}
 
 $hyperframesReady = $node22 -and $hasNpx -and $hasFfmpeg
 $remotionReady = $hasNode -and $hasNpx
 
 Write-Host "== Renderer preflight =="
-Write-Host "Tesseract :" ($(if ($hasTesseract) {"ready"} else {"not detected"}))
+Write-Host "Tesseract :" ($(if ($hasTesseract) {"ready"} else {"not detected/supported here"}))
 Write-Host "HyperFrames:" ($(if ($hyperframesReady) {"base requirements ready"} else {"missing Node22+/npx/ffmpeg"}))
 Write-Host "Remotion  :" ($(if ($remotionReady) {"base requirements ready"} else {"missing node/npx"}))
 
@@ -43,7 +48,7 @@ if ($Renderer -eq "auto") {
 
 switch ($Renderer) {
   "tesseract" {
-    if (-not $hasTesseract) { throw "Tesseract solicitado, mas CLI nao detectado." }
+    if (-not $hasTesseract) { throw "Tesseract solicitado, mas CLI/ambiente suportado nao foi detectado." }
   }
   "hyperframes" {
     if (-not $hyperframesReady) { throw "HyperFrames solicitado, mas faltam requisitos." }
