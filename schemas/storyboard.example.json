@@ -23,7 +23,45 @@
         }
       ]
     },
-    {"id": "B", "hypothesis": "Problema/benefício + demonstração", "reference_grammar": [], "scenes": []},
-    {"id": "C", "hypothesis": "Editorial + payoff comercial", "reference_grammar": [], "scenes": []}
+    {
+      "id": "B",
+      "hypothesis": "Problema/benefício + demonstração",
+      "reference_grammar": [],
+      "scenes": [
+        {
+          "id": "B01",
+          "start_s": 0.0,
+          "duration_s": 1.0,
+          "purpose": "hook-beneficio",
+          "assets": ["assets/produto-exemplo/product/hero.png"],
+          "copy": {"headline": ""},
+          "composition": "produto em uso com benefício em destaque",
+          "motion_intent": "reveal lateral",
+          "transition_out": "hard cut",
+          "truth_sources": ["brief.md"],
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "hypothesis": "Editorial + payoff comercial",
+      "reference_grammar": [],
+      "scenes": [
+        {
+          "id": "C01",
+          "start_s": 0.0,
+          "duration_s": 1.0,
+          "purpose": "hook-editorial",
+          "assets": ["assets/produto-exemplo/product/hero.png"],
+          "copy": {"headline": ""},
+          "composition": "produto hero com respiro editorial",
+          "motion_intent": "push-in lento",
+          "transition_out": "hard cut",
+          "truth_sources": ["brief.md"],
+          "notes": ""
+        }
+      ]
+    }
   ]
 }

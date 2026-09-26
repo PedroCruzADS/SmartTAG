@@ -65,7 +65,7 @@ def create_job(
     if duration_seconds < 1 or duration_seconds > 120:
         raise ValueError("duration_seconds deve estar entre 1 e 120.")
 
-    now = now or datetime.now(timezone.utc)
+    now = now or datetime.now().astimezone()
     outputs = root / "outputs"
     outputs.mkdir(parents=True, exist_ok=True)
     job = next_job_dir(outputs, slug, objective, canvas, now)

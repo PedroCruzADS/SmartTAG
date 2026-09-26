@@ -21,6 +21,7 @@ def main() -> None:
     args = ap.parse_args()
 
     status = renderer_status()
+    concrete = ("tesseract", "hyperframes", "remotion")
     status["hybrid"] = {
         "ready": bool(
             status["tesseract"]["ready"]
@@ -32,11 +33,11 @@ def main() -> None:
         "details": {},
     }
     status["auto"] = {
-        "ready": True,
+        "ready": any(status[name]["ready"] for name in concrete),
         "details": {
             "note": (
-                "auto exige decisao semantica; "
-                "disponibilidade nao escolhe renderer."
+                "auto exige decisao semantica entre renderers disponiveis; "
+                "disponibilidade so funciona como filtro."
             )
         },
     }
@@ -63,17 +64,20 @@ def main() -> None:
                     "stderr": proc.stderr[-2000:],
                 }
             doctor = status["hyperframes"].get("doctor")
-            if (
-                isinstance(doctor, dict)
-                and doctor.get("ok") is False
-            ):
+            if isinstance(doctor, dict) and doctor.get("ok") is False:
                 status["hyperframes"]["ready"] = False
+                status["auto"]["ready"] = any(
+                    status[name]["ready"] for name in concrete
+                )
         except (OSError, subprocess.SubprocessError) as exc:
             status["hyperframes"]["ready"] = False
             status["hyperframes"]["doctor"] = {
                 "ok": False,
                 "error": str(exc),
             }
+            status["auto"]["ready"] = any(
+                status[name]["ready"] for name in concrete
+            )
 
     selected = status[args.renderer]
 
@@ -95,7 +99,10 @@ def main() -> None:
             print(f"{'[OK]' if status[name]['ready'] else '[--]'} {name}")
         if args.renderer == "auto":
             print()
-            print("AUTO: escolha pelo job, nao pela ferramenta instalada.")
+            print(
+                "AUTO: escolha pelo job entre renderers que passaram "
+                "o preflight."
+            )
             print(
                 "- HyperFrames: layout/motion deterministico "
                 "e iteracao por agente"
@@ -106,6 +113,8 @@ def main() -> None:
                 "retiming e acabamento"
             )
             print("- Hybrid: combine quando reduzir retrabalho")
+            if not selected["ready"]:
+                print("[ERROR] nenhum renderer concreto esta pronto.")
         else:
             print()
             state = "ready" if selected["ready"] else "NOT READY"

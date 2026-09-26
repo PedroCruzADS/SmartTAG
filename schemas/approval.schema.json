@@ -29,6 +29,59 @@
         "actor_type": {"enum": ["human", "agent", null]},
         "note": {"type": "string"}
       },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"status": {"const": "pending"}},
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "approved_at": {"type": "null"},
+              "approved_by": {"type": "null"},
+              "actor_type": {"type": "null"}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"status": {"const": "approved"}},
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "approved_at": {"type": "string", "format": "date-time"},
+              "approved_by": {"type": "string", "minLength": 1},
+              "actor_type": {"enum": ["human", "agent"]}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"status": {"const": "rejected"}},
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "approved_at": {"type": "null"},
+              "approved_by": {"type": "string", "minLength": 1},
+              "actor_type": {"enum": ["human", "agent"]}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "mode": {"const": "human"},
+              "status": {"enum": ["approved", "rejected"]}
+            },
+            "required": ["mode", "status"]
+          },
+          "then": {
+            "properties": {"actor_type": {"const": "human"}}
+          }
+        }
+      ],
       "additionalProperties": false
     }
   },
