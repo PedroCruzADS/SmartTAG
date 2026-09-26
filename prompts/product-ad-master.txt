@@ -1,16 +1,18 @@
-Leia AGENTS.md, docs/WORKFLOW.md, docs/OFFER-TRUTH.md e docs/QA-PAID-MEDIA.md.
+Leia AGENTS.md, docs/WORKFLOW.md, docs/RENDERER-ROUTING.md, docs/OFFER-TRUTH.md e docs/QA-PAID-MEDIA.md.
 
-Objetivo: criar uma master de anúncio de produto para mídia paga usando Tesseract.
+Objetivo: criar uma master de anúncio de produto para mídia paga.
 
-1. Inspecione os assets reais do produto.
-2. Leia o brief e o snapshot comercial.
-3. Não use informação comercial fora dessas fontes.
-4. Desenvolva um hook visual rápido e relacionado ao produto.
-5. Priorize produto > oferta > benefício > CTA.
-6. Use motion limpo e editável.
-7. Gere preview e filmstrip.
-8. Faça QA visual e comercial.
-9. Corrija problemas encontrados.
-10. Exporte Project.tsrct e Project.mp4.
+1. Inspecione assets reais, brand kit, referências, brief, request e snapshot.
+2. Não use informação comercial fora das fontes autorizadas.
+3. Deconstrua as referências em pacing, composição, tipografia, câmera e transições; não copie literalmente.
+4. Gere 3 storyboards realmente diferentes antes de animar.
+5. Escolha/registre a direção aprovada.
+6. Gere um still por cena e corrija composição antes do motion.
+7. Escolha Tesseract, HyperFrames, Remotion ou Hybrid conforme docs/RENDERER-ROUTING.md.
+8. Priorize produto > oferta > benefício > CTA, salvo se o brief definir outra hierarquia.
+9. Gere preview/snapshots/filmstrip apropriados ao renderer.
+10. Faça QA visual e comercial.
+11. Aplique notas de direção específicas, evitando pedidos vagos.
+12. Exporte master e só depois crie adaptações/variantes.
 
-Não invente produto, característica técnica, preço, desconto, condição, logo ou selo.
+Não invente produto, característica técnica, preço, desconto, condição, logo, selo ou asset.

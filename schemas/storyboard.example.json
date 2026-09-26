@@ -1,0 +1,47 @@
+{
+  "job": "produto-exemplo",
+  "selected_variant": null,
+  "variants": [
+    {
+      "id": "A",
+      "hypothesis": "Produto hero + oferta rápida",
+      "reference_grammar": [
+        "pacing: cortes de 0.8–1.2s",
+        "camera: push-ins discretos"
+      ],
+      "scenes": [
+        {
+          "id": "A01",
+          "start_s": 0.0,
+          "duration_s": 1.0,
+          "purpose": "hook",
+          "assets": [
+            "assets/produto-exemplo/product/hero.png"
+          ],
+          "copy": {
+            "headline": ""
+          },
+          "composition": "produto central, headline no terço superior",
+          "motion_intent": "push-in leve",
+          "transition_out": "hard cut",
+          "truth_sources": [
+            "brief.md"
+          ],
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "hypothesis": "Problema/benefício + demonstração",
+      "reference_grammar": [],
+      "scenes": []
+    },
+    {
+      "id": "C",
+      "hypothesis": "Editorial/cinemático + payoff comercial",
+      "reference_grammar": [],
+      "scenes": []
+    }
+  ]
+}
