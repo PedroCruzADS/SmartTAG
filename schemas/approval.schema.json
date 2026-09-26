@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tesseract-creative-lab.local/schemas/approval.schema.json",
+  "title": "Approval gates",
+  "type": "object",
+  "required": ["schema_version", "gates"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "gates": {
+      "type": "object",
+      "required": ["storyboard", "stills", "final_preview"],
+      "properties": {
+        "storyboard": {"$ref": "#/$defs/gate"},
+        "stills": {"$ref": "#/$defs/gate"},
+        "final_preview": {"$ref": "#/$defs/gate"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "gate": {
+      "type": "object",
+      "required": ["mode", "status", "approved_at", "approved_by", "actor_type", "note"],
+      "properties": {
+        "mode": {"enum": ["human", "auto"]},
+        "status": {"enum": ["pending", "approved", "rejected"]},
+        "approved_at": {"type": ["string", "null"], "format": "date-time"},
+        "approved_by": {"type": ["string", "null"]},
+        "actor_type": {"enum": ["human", "agent", null]},
+        "note": {"type": "string"}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"status": {"const": "pending"}},
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "approved_at": {"type": "null"},
+              "approved_by": {"type": "null"},
+              "actor_type": {"type": "null"}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"status": {"const": "approved"}},
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "approved_at": {"type": "string", "format": "date-time"},
+              "approved_by": {"type": "string", "minLength": 1},
+              "actor_type": {"enum": ["human", "agent"]}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"status": {"const": "rejected"}},
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "approved_at": {"type": "null"},
+              "approved_by": {"type": "string", "minLength": 1},
+              "actor_type": {"enum": ["human", "agent"]}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "mode": {"const": "human"},
+              "status": {"enum": ["approved", "rejected"]}
+            },
+            "required": ["mode", "status"]
+          },
+          "then": {
+            "properties": {"actor_type": {"const": "human"}}
+          }
+        }
+      ],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

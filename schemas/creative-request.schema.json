@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tesseract-creative-lab.local/schemas/creative-request.schema.json",
+  "title": "Creative request",
+  "type": "object",
+  "required": ["schema_version", "product_slug", "objective", "channel", "canvas", "duration_seconds", "fps", "renderer", "assets_dir", "storyboard", "approval", "constraints"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "job_id": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "format": "date-time"},
+    "product_slug": {"type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$"},
+    "objective": {"type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$"},
+    "channel": {"type": "string", "minLength": 1},
+    "placements": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "canvas": {"enum": ["1080x1920", "1080x1350", "1080x1080"]},
+    "duration_seconds": {"type": "number", "exclusiveMinimum": 0, "maximum": 120},
+    "fps": {"enum": [24, 30, 60]},
+    "renderer": {"enum": ["auto", "tesseract", "hyperframes", "remotion", "hybrid"]},
+    "offer_snapshot": {"type": "string", "minLength": 1},
+    "assets_dir": {"type": "string", "minLength": 1},
+    "brand": {
+      "type": "object",
+      "properties": {
+        "logo": {"type": "string"},
+        "fonts": {"type": "array", "items": {"type": "string"}},
+        "colors": {"type": "array", "items": {"type": "string"}},
+        "rules": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source"],
+        "properties": {
+          "source": {"type": "string", "minLength": 1},
+          "use_for": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "do_not_copy": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+        },
+        "additionalProperties": true
+      }
+    },
+    "copy": {
+      "type": "object",
+      "properties": {
+        "hook": {"type": "string"},
+        "headline": {"type": "string"},
+        "support": {"type": "string"},
+        "cta": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "storyboard": {
+      "type": "object",
+      "required": ["variants", "require_stills_before_motion"],
+      "properties": {
+        "variants": {"const": 3},
+        "require_stills_before_motion": {"const": true}
+      },
+      "additionalProperties": true
+    },
+    "approval": {
+      "type": "object",
+      "required": ["storyboard", "stills", "final_preview"],
+      "properties": {
+        "storyboard": {"enum": ["human", "auto"]},
+        "stills": {"enum": ["human", "auto"]},
+        "final_preview": {"enum": ["human", "auto"]}
+      },
+      "additionalProperties": false
+    },
+    "variants": {"type": "object"},
+    "constraints": {
+      "type": "object",
+      "required": ["no_product_recreation", "no_unverified_claims"],
+      "properties": {
+        "no_product_recreation": {"const": true},
+        "no_unverified_claims": {"const": true}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,60 +1,60 @@
-# Brief — Casa do Fitness / teste Tesseract
+# Brief — Casa do Fitness / criativo de performance
 
 ## Objetivo
 
-Criar um primeiro vídeo promocional curto para validar o Tesseract como ferramenta de produção de criativos de performance.
+Criar um vídeo promocional curto para mídia paga usando somente assets e condições comerciais autorizadas.
 
 ## Formato
 
 - 1080 × 1920
 - 9:16
 - 8 a 10 segundos
-- destinado a Meta Ads
+- Meta Ads
 - leitura prioritária em celular
 
 ## Assets
 
-Usar exclusivamente os arquivos reais presentes em `assets/`.
+Usar exclusivamente arquivos reais do produto/brand kit.
 
-Não modificar visualmente o produto de forma que suas características sejam alteradas.
-Não substituir produto, logo ou embalagem por recriações geradas por IA.
+Não modificar produto, embalagem ou logo de forma que características sejam alteradas.
+Não substituir produto por recriação de IA.
+
+## Workflow
+
+1. validar ingestão;
+2. gerar 3 storyboards;
+3. selecionar/aprovar direção;
+4. gerar still por cena;
+5. aprovar stills;
+6. escolher renderer;
+7. produzir motion;
+8. gerar preview;
+9. aprovar preview;
+10. renderizar/validar final.
 
 ## Estrutura sugerida
 
 ### 0.0–1.5 s — Hook
-Entrada rápida do produto.
-Headline curta e forte.
-O produto deve ser identificável imediatamente.
+Produto identificável imediatamente.
 
 ### 1.5–6.5 s — Produto / benefício
-Dar destaque ao produto com motion leve.
-Se existirem assets de detalhe, alternar ou compor de maneira limpa.
-Usar somente benefícios ou informações comprovadas nos assets/brief fornecido.
+Destaque ao produto e somente benefícios comprovados.
 
 ### 6.5–9.0 s — Oferta / CTA
-Exibir oferta somente se estiver explicitamente informada pelo usuário ou nos assets fornecidos.
-Logo da Casa do Fitness.
-CTA simples e legível.
+Oferta apenas se autorizada. Logo e CTA legíveis.
 
 ## Motion
 
-- easing suave
-- poucos movimentos simultâneos
-- sem transições genéricas exageradas
-- evitar texto voando em excesso
-- produto com maior peso visual
-- manter safe areas
+- easing coerente;
+- poucos movimentos simultâneos;
+- evitar transições genéricas;
+- produto com maior peso visual;
+- safe areas preservadas.
+
+## Renderer
+
+auto por padrão. Escolha Tesseract, HyperFrames, Remotion ou Hybrid conforme docs/RENDERER-ROUTING.md.
 
 ## Validação
 
-Antes do export final:
-- gerar um preview estático
-- gerar um filmstrip de toda a duração
-- verificar se produto permanece fiel ao asset
-- verificar cortes e sobreposições
-- verificar leitura do texto em tamanho mobile
-
-## Primeira tarefa recomendada para o agente
-
-Crie a primeira versão usando os assets disponíveis.
-Se não houver assets suficientes, não invente nenhum: liste exatamente o que está faltando.
+Use approvals.json e scripts/validate_job.py nos gates. Rode scripts/validate_render.py na entrega.

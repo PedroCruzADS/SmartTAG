@@ -3,38 +3,58 @@
 Checklist obrigatório antes de considerar uma peça pronta.
 
 ## Produto
-- produto corresponde exatamente aos assets;
-- proporção não distorce o item;
-- nenhuma característica física foi inventada;
-- detalhes importantes não estão cobertos por texto.
+
+- produto corresponde aos assets autorizados;
+- proporção/cor/componentes não foram alterados;
+- nenhum detalhe físico foi inventado;
+- texto/overlays não escondem detalhes relevantes;
+- assets usados constam no manifest quando houver.
 
 ## Oferta
-- preço confere com a fonte;
-- desconto confere com a fonte;
-- parcelamento confere com a fonte;
-- cupom confere com a fonte;
-- frete/condições possuem asterisco quando necessário;
-- nenhuma condição vencida foi reaproveitada.
+
+- preço confere com fonte;
+- desconto confere com fonte;
+- parcelamento confere;
+- cupom/frete conferem;
+- nenhuma condição vencida foi reaproveitada;
+- múltiplas variantes/preços não foram resolvidos por suposição;
+- toda afirmação comercial aponta para brief/snapshot autorizado.
 
 ## Layout
-- headline legível em tela pequena;
-- CTA legível;
+
+- headline/CTA legíveis em mobile;
 - contraste suficiente;
 - safe areas respeitadas;
-- sem texto cortado;
+- sem clipping/overflow;
 - logo íntegro;
-- hierarquia clara.
+- hierarquia clara;
+- still de cada cena foi revisado antes de motion.
 
 ## Motion
-- hook compreensível nos primeiros 1–1,5 s;
-- transições não escondem o produto;
-- duração suficiente para ler preço/condição;
-- sem movimentos gratuitos;
-- encerramento não corta CTA/logo.
 
-## Entrega
-- filmstrip revisado;
-- MP4 abre corretamente;
-- `.tsrct` salvo;
-- arquivos associados à versão correta;
-- nome de arquivo segue `docs/NAMING.md`.
+- hook compreensível;
+- transições não escondem produto;
+- tempo de leitura suficiente;
+- sem movimento gratuito;
+- encerramento não corta CTA/logo;
+- notas de direção foram aplicadas localmente quando possível.
+
+## Gates
+
+- storyboard selecionado e aprovado;
+- stills aprovados;
+- preview final aprovado;
+- approvals.json registra ator, horário e nota quando aplicável.
+
+## Técnico
+
+- projeto/código editável preservado;
+- preview existe;
+- render final abre;
+- resolução/FPS/duração validados com scripts/validate_render.py;
+- áudio conferido quando houver;
+- naming segue docs/NAMING.md.
+
+## Renderer
+
+Não exigir arquivo .tsrct quando o job foi feito em HyperFrames/Remotion. A entrega editável depende da rota escolhida.

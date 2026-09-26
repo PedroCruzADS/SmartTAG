@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-26T13:00:00+00:00",
+  "assets_dir": "assets/produto-exemplo",
+  "files": [
+    {
+      "path": "product/hero.png",
+      "role": "product",
+      "bytes": 123,
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  ]
+}

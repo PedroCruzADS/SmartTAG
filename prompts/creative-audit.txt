@@ -1,17 +1,20 @@
 Audite a peça atual sem modificá-la primeiro.
 
 Verifique:
-- fidelidade do produto;
-- consistência com snapshot da oferta;
+- fidelidade do produto/manifest;
+- consistência com snapshot/oferta;
 - hierarquia visual;
 - legibilidade mobile;
 - safe areas;
 - timing do hook;
-- duração de leitura da oferta;
+- duração de leitura;
 - CTA;
 - excesso de motion;
-- cortes e overlaps;
-- integridade do logo.
+- clipping/overlaps;
+- integridade do logo;
+- approvals/gates;
+- presença de preview;
+- consistência entre renderer declarado e fonte editável.
 
 Compare com docs/QA-PAID-MEDIA.md.
-Retorne achados objetivos e só então aplique correções necessárias.
+Retorne achados objetivos e só então aplique correções localizadas.

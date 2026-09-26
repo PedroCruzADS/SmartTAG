@@ -1,7 +1,7 @@
 # Brief — <campanha/produto>
 
 ## Objetivo
-<conversão, tráfego, remarketing, lançamento, oferta>
+<conversion, traffic, remarketing, launch, offer>
 
 ## Produto
 - Nome:
@@ -21,36 +21,47 @@
 - Frete:
 - Observações legais:
 
-Preencher apenas o que estiver comprovado.
+Preencher somente o que estiver comprovado.
 
 ## Brand kit
 - Logo:
 - Cores:
 - Fontes:
 - Elementos gráficos:
-- Regras que não podem ser quebradas:
+- Regras:
+
+## Assets
+- Pasta:
+- Manifest SHA-256:
+- Derivados permitidos:
 
 ## Referências
+
 ### Referência A
 - URL/arquivo:
-- Usar:
+- Usar para:
 - Não copiar:
 
 ### Referência B
 - URL/arquivo:
-- Usar:
+- Usar para:
 - Não copiar:
 
 ## Formato
-- Canvas principal:
+- Canvas:
 - Duração:
+- FPS:
 - Canal:
 - Placement:
-- FPS:
 
 ## Renderer
 - Preferência: auto | tesseract | hyperframes | remotion | hybrid
-- Motivo, se forçado:
+- Motivo se forçado:
+
+## Approval
+- storyboard: human | auto
+- stills: human | auto
+- final_preview: human | auto
 
 ## Copy
 - Hook:
@@ -58,23 +69,17 @@ Preencher apenas o que estiver comprovado.
 - Supporting text:
 - CTA:
 
-## Assets autorizados
-- listar arquivos/pastas
-
 ## Restrições
 - itens que não podem ser alterados
 - informações proibidas
-- safe areas / observações
+- safe areas
+- observações legais
 
 ## Direção visual
-<descrição curta e operacional>
+<descrição operacional>
 
 ## Storyboard
 Gerar 3 variantes antes de motion.
-- A:
-- B:
-- C:
-- Direção escolhida:
 
 ## Variações desejadas
 - hook A/B
@@ -82,4 +87,4 @@ Gerar 3 variantes antes de motion.
 - 9:16 / 4:5 / 1:1
 
 ## Notas de direção
-Registrar mudanças pós-preview com cena + parâmetro + intensidade.
+Registrar mudanças por cena/parâmetro/intensidade.

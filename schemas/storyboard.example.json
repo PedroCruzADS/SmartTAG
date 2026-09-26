@@ -1,32 +1,24 @@
 {
-  "job": "produto-exemplo",
+  "schema_version": 1,
+  "job": "20260926_produto-exemplo_conversion_9x16_v01",
   "selected_variant": null,
   "variants": [
     {
       "id": "A",
       "hypothesis": "Produto hero + oferta rápida",
-      "reference_grammar": [
-        "pacing: cortes de 0.8–1.2s",
-        "camera: push-ins discretos"
-      ],
+      "reference_grammar": ["pacing: cortes de 0.8–1.2s", "camera: push-ins discretos"],
       "scenes": [
         {
           "id": "A01",
           "start_s": 0.0,
           "duration_s": 1.0,
           "purpose": "hook",
-          "assets": [
-            "assets/produto-exemplo/product/hero.png"
-          ],
-          "copy": {
-            "headline": ""
-          },
+          "assets": ["assets/produto-exemplo/product/hero.png"],
+          "copy": {"headline": ""},
           "composition": "produto central, headline no terço superior",
           "motion_intent": "push-in leve",
           "transition_out": "hard cut",
-          "truth_sources": [
-            "brief.md"
-          ],
+          "truth_sources": ["brief.md"],
           "notes": ""
         }
       ]
@@ -35,13 +27,41 @@
       "id": "B",
       "hypothesis": "Problema/benefício + demonstração",
       "reference_grammar": [],
-      "scenes": []
+      "scenes": [
+        {
+          "id": "B01",
+          "start_s": 0.0,
+          "duration_s": 1.0,
+          "purpose": "hook-beneficio",
+          "assets": ["assets/produto-exemplo/product/hero.png"],
+          "copy": {"headline": ""},
+          "composition": "produto em uso com benefício em destaque",
+          "motion_intent": "reveal lateral",
+          "transition_out": "hard cut",
+          "truth_sources": ["brief.md"],
+          "notes": ""
+        }
+      ]
     },
     {
       "id": "C",
-      "hypothesis": "Editorial/cinemático + payoff comercial",
+      "hypothesis": "Editorial + payoff comercial",
       "reference_grammar": [],
-      "scenes": []
+      "scenes": [
+        {
+          "id": "C01",
+          "start_s": 0.0,
+          "duration_s": 1.0,
+          "purpose": "hook-editorial",
+          "assets": ["assets/produto-exemplo/product/hero.png"],
+          "copy": {"headline": ""},
+          "composition": "produto hero com respiro editorial",
+          "motion_intent": "push-in lento",
+          "transition_out": "hard cut",
+          "truth_sources": ["brief.md"],
+          "notes": ""
+        }
+      ]
     }
   ]
 }

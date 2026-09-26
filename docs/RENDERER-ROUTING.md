@@ -1,102 +1,125 @@
 # Renderer routing
 
-O Lab é renderer-agnostic. Use o que reduz risco e retrabalho para o job.
+Escolha o renderer que reduz risco e custo de alteração futura.
 
-## Auto-routing
+A disponibilidade local é apenas um filtro; não é o critério criativo.
 
-### Tesseract
+## Tesseract
+
 Prefira quando houver:
+
 - footage real;
 - edição temporal tradicional;
-- máscaras e compositing;
+- máscaras/compositing;
 - speed ramps/retiming;
-- acabamento sobre material já renderizado;
-- necessidade de projeto visual editável no Tesseract.
+- acabamento sobre material renderizado;
+- necessidade de projeto .tsrct editável.
 
-### HyperFrames
+A versão 0.2.0 adicionou suporte a Linux x86_64, além de macOS e Windows. Use a skill oficial para requisitos/instalação da versão atual e verificação de checksum.
+
+Setup de skills:
+
+~~~bash
+npx skills add mirage-hq/Tesseract
+~~~
+
+Não assuma path fixo. O Lab considera Tesseract pronto quando encontra tsrct/tsrct.cmd no PATH, com fallback Windows legado.
+
+## HyperFrames
+
 Prefira quando houver:
-- motion graphics baseado em layout;
-- produto recortado + tipografia + cards + shapes;
-- transições determinísticas;
-- necessidade de iteração rápida por agente;
-- comparação de snapshots;
-- composição HTML/CSS/GSAP;
-- peça curta de performance com muita precisão de timing.
 
-Requisitos: Node.js 22+ e FFmpeg.
+- produto recortado + tipografia/cards/shapes;
+- layout/motion determinístico;
+- microajustes frequentes de timing;
+- HTML/CSS/GSAP;
+- necessidade de snapshots/comparação;
+- peça curta de performance.
+
+Requisitos atuais: Node.js 22+ e FFmpeg/FFprobe.
 
 Preflight:
-~~~powershell
-npx hyperframes doctor
-npx hyperframes skills check
+
+~~~bash
+python scripts/preflight_renderer.py --renderer hyperframes --deep
 ~~~
 
-Ciclo:
-~~~powershell
-npx hyperframes lint <composicao>
-npx hyperframes check <composicao>
-npx hyperframes snapshot <composicao>
+Loop recomendado:
+
+~~~bash
+npx hyperframes check --strict
+npx hyperframes snapshot --at 0.5,2.0,5.0
 npx hyperframes preview
-npx hyperframes render
+# aprovação final
+npx hyperframes render --output Renders/master.mp4
 ~~~
 
-Consulte `npx hyperframes <comando> --help`: a versão instalada é a autoridade.
+check já inclui lint/runtime/layout checks. inspect, validate e layout são aliases depreciados e não devem entrar em instruções novas.
 
-### Remotion
+doctor --json pode sair com código 0 mesmo quando há problemas; em automação, leia o campo ok. O preflight do Lab faz isso.
+
+## Remotion
+
 Prefira quando houver:
-- React/components;
+
+- React/componentização;
 - templates reutilizáveis;
-- muitas variações parametrizadas;
+- lotes e muitas variações;
 - dados estruturados alimentando cenas;
-- reuso de componentes entre produtos;
-- necessidade de render de stills e vídeos a partir da mesma composição.
+- reuso entre produtos/formatos.
 
 Skills:
-~~~powershell
+
+~~~bash
 npx -y skills@latest add remotion-dev/skills -g -y
 ~~~
 
-Para um projeto novo:
-~~~powershell
+Projeto novo:
+
+~~~bash
 npx create-video@latest --yes --blank my-video
 ~~~
 
-### Hybrid
-Use quando a combinação reduzir risco. Exemplos:
-- HyperFrames para motion + Tesseract para footage/compositing;
-- Remotion para lote/parametrização + Tesseract para master hero;
-- HyperFrames para opening/price cards + editor para montagem final.
+A documentação atual exige pelo menos Node.js 16. Siga requisitos da versão instalada e mantenha remotion e @remotion/* em versões compatíveis.
 
-Registre quais etapas pertencem a cada renderer.
+## Hybrid
+
+Use quando separar responsabilidades reduzir retrabalho, por exemplo:
+
+- HyperFrames para motion cards + Tesseract para footage/compositing;
+- Remotion para lote + Tesseract para master hero;
+- renderer programático para overlays + editor para montagem final.
+
+Registre em notes.md quais etapas pertencem a cada ferramenta.
 
 ## 21st.dev
 
-21st.dev é opcional e **não é um renderer**.
+21st.dev é opcional e não é renderer.
 
-Use quando o produto anunciado for software ou quando uma cena exigir UI plausível/consistente. Para produto físico, prefira componentes próprios do brand kit e assets reais.
+Use somente quando uma cena precisar de UI plausível de software. A instalação de skill oficial é:
 
-Instalação de skill:
-~~~powershell
+~~~bash
 npx @21st-dev/cli install-skill
 ~~~
 
-Não introduza componentes do 21st apenas para "deixar bonito". Eles devem servir a uma cena e respeitar identidade/brand kit.
+Componentes entram como código de terceiros: revise diff, dependências, tokens e estilos. Não use por estética genérica em anúncio de produto físico.
 
 ## Matriz rápida
 
-| Job | Rota sugerida |
+| Job | Rota provável |
 | --- | --- |
-| Produto físico + tipografia + preço + motion | HyperFrames |
+| Produto físico + tipografia + preço | HyperFrames |
 | UGC/footage + overlays + speed ramp | Tesseract |
-| 100 SKUs a partir de um template | Remotion |
-| SaaS com telas e UI | Remotion/HyperFrames + 21st opcional |
+| 100 SKUs parametrizados | Remotion |
+| SaaS com telas reais | Remotion/HyperFrames + 21st opcional |
 | Motion programático + acabamento editorial | Hybrid |
-| Um único hero film complexo com footage | Tesseract/Hybrid |
+| Hero film com footage complexo | Tesseract/Hybrid |
 
-## Regra de decisão
+## Auto
 
-"Auto" significa escolher pelo **custo de alteração futura**, não pela velocidade do primeiro render.
+auto escolhe pelo custo esperado de revisão:
 
-Se o criativo vai gerar dezenas de variações, parametrização pesa mais.
-Se haverá muita máscara/footage, compositing pesa mais.
-Se haverá muitas microcorreções de layout/timing, determinismo pesa mais.
+- muita parametrização → Remotion ganha peso;
+- muita máscara/footage → Tesseract ganha peso;
+- muitas microcorreções de layout/timing → HyperFrames ganha peso;
+- responsabilidades distintas → Hybrid.

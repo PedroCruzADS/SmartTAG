@@ -1,17 +1,21 @@
-Use a master aprovada como fonte.
+Use uma master aprovada como fonte.
 
-Crie variações sem reconstruir o produto nem alterar sua aparência:
-- Hook A: foco em produto.
-- Hook B: foco em oferta.
-- Hook C: foco em benefício comprovado.
-- CTA A/B, se houver copy autorizada.
-- adaptações 1080x1920, 1080x1350 e 1080x1080.
+Crie variações sem reconstruir produto nem alterar aparência.
+
+Eixos possíveis:
+- Hook A: produto;
+- Hook B: oferta;
+- Hook C: benefício comprovado;
+- CTA A/B;
+- formatos 1080x1920, 1080x1350, 1080x1080.
+
+Mude uma hipótese por vez quando o objetivo for aprender com performance.
 
 Preserve:
-- oferta e snapshot;
+- snapshot/oferta;
+- manifest/asset;
 - identidade visual;
-- assets;
-- duração adequada para leitura;
-- editabilidade.
+- editabilidade;
+- duração adequada para leitura.
 
-Para cada versão, gere filmstrip e valide contra docs/QA-PAID-MEDIA.md.
+Cada versão deve ter preview + QA e render técnico validado.

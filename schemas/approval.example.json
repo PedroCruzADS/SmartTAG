@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "gates": {
+    "storyboard": {
+      "mode": "human",
+      "status": "pending",
+      "approved_at": null,
+      "approved_by": null,
+      "actor_type": null,
+      "note": ""
+    },
+    "stills": {
+      "mode": "human",
+      "status": "pending",
+      "approved_at": null,
+      "approved_by": null,
+      "actor_type": null,
+      "note": ""
+    },
+    "final_preview": {
+      "mode": "human",
+      "status": "pending",
+      "approved_at": null,
+      "approved_by": null,
+      "actor_type": null,
+      "note": ""
+    }
+  }
+}
